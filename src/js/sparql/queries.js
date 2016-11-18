@@ -1,5 +1,5 @@
 import {
-  SKOSPrefix, ORGPrefix, GSBPMPrefix, GSIMPrefix, RDFSPrefix, CSPAPrefix
+  SKOSPrefix, ORGPrefix, VCARDPrefix, GSBPMPrefix, GSIMPrefix, RDFSPrefix, CSPAPrefix
 } from './prefixes'
 
 // TODO we might need to filter on the language, but for now English seems to be
@@ -13,12 +13,32 @@ const NSIList = () => `
   PREFIX skos: <${SKOSPrefix}>
 
   SELECT ?nsi ?label
-
   WHERE {
     ?nsi a org:Organization ; skos:prefLabel ?label .
   }
   ORDER BY ?nsi
  `
+
+ /**
+  * Builds the query that retrieves the details on a given NSI.
+  */
+ const NSIDetails = (nsi) => `
+   PREFIX org: <${ORGPrefix}>
+   PREFIX skos: <${SKOSPrefix}>
+   PREFIX vcard: <${VCARDPrefix}>
+
+   SELECT ?name ?shortName ?address ?geo
+   WHERE {
+     <${nsi}> skos:prefLabel ?name .
+     OPTIONAL {
+       <${nsi}> skos:altLabel ?shortName .
+     }
+     OPTIONAL {
+       <${nsi}> org:hasSite/org:siteAddress ?card .
+       ?card vcard:street-address ?address ; vcard:hasGeo ?geo .
+     }
+   }
+  `
 
 /**
  * Builds the query that retrieves the GSBPM overview.
@@ -64,6 +84,7 @@ const services = () => `
 	  OPTIONAL {?service cspa:hasPackageDefinition [
     	   a cspa:ServiceDefinition; cspa:aimsAt [cspa:description ?description]]}
   }
+  ORDER BY ?label
 `
 
 /**
@@ -73,16 +94,24 @@ const serviceDetails = service => `
   PREFIX cspa: <${CSPAPrefix}>
   PREFIX skos: <${SKOSPrefix}>
 
-  SELECT ?label ?description ?outcomes ?subprocess ?restrictions ?serviceGraph
+  SELECT
+    ?label ?description ?outcomes ?subprocess ?restrictions ?graphName
+    ?builderOrg
   WHERE {
-    GRAPH ?serviceGraph {
-      <${service}> cspa:hasPackageDefinition [
-    	   a cspa:ServiceDefinition; cspa:aimsAt [
-           cspa:description ?description ;
-    	     cspa:outcomes ?outcomes ;
-    	     cspa:gsbpmSubProcess ?subprocess ;
-    	     cspa:restrictions ?restrictions ]] ;
-    	 cspa:label ?label ;
+    GRAPH ?graphName {
+      <${service}>
+        cspa:hasPackageDefinition [
+    	     a cspa:ServiceDefinition; cspa:aimsAt [
+             cspa:description ?description ;
+    	        cspa:outcomes ?outcomes ;
+    	        cspa:restrictions ?restrictions ]] ;
+        cspa:hasPackageImplementation [
+         	a cspa:ServiceImplementationDescription ;
+            cspa:comesFrom [
+              a cspa:Provenance ;
+              cspa:builderOrganization [
+              	cspa:organization ?builderOrg ]]] ;
+    	  cspa:label ?label ;
     }
   }
 `
@@ -190,6 +219,7 @@ const GSIMClasses = group => `
                gsim:classDefinition ?definition ;
                rdfs:label ?label
   }
+  ORDER BY ?label
 `
 
 /**
@@ -210,7 +240,7 @@ const GSIMAllClasses = () => `
 /**
  * Builds the query that retrieves the list of all CSPA services with a given GSIM input.
  */
-const servicesByGSIMInput = gsimClass => `
+const servicesByGSIMInput = GSIMClass => `
   PREFIX cspa:  <${CSPAPrefix}>
   PREFIX gsbpm: <${GSBPMPrefix}>
   PREFIX gsim:  <${GSIMPrefix}>
@@ -223,14 +253,14 @@ const servicesByGSIMInput = gsimClass => `
              cspa:hasPackageDefinition ?pckgDefinition .
 
     ?pckgDefinition cspa:definitionHasInput ?input .
-    ?input cspa:gsimInput <${gsimClass}>
+    ?input cspa:gsimInput <${GSIMClass}>
   }
 `
 
 /**
  * Builds the query that retrieves the list of all CSPA services with a given GSIM output.
  */
-const servicesByGSIMOutput = gsimClass => `
+const servicesByGSIMOutput = GSIMClass => `
   PREFIX cspa:  <${CSPAPrefix}>
   PREFIX gsbpm: <${GSBPMPrefix}>
   PREFIX gsim:  <${GSIMPrefix}>
@@ -243,28 +273,103 @@ const servicesByGSIMOutput = gsimClass => `
              cspa:hasPackageDefinition ?pckgDefinition .
 
     ?pckgDefinition cspa:definitionHasOutput ?input .
-    ?input cspa:gsimOutput <${gsimClass}>
+    ?input cspa:gsimOutput <${GSIMClass}>
   }
 `
 
 /**
  * Builds the query that retrieves the list of all CSPA services in a given GSBPM subprocess.
  */
-const servicesBySubProcess = (subprocess) => `
+const servicesByGSBPMSubProcess = (GSBPMSub) => `
   PREFIX gsbpm: <${GSBPMPrefix}>
   PREFIX skos:  <${SKOSPrefix}>
   PREFIX cspa:  <${CSPAPrefix}>
 
   SELECT ?service ?label WHERE {
-    ?function cspa:gsbpmSubProcess <${subprocess}> .
+    ?function cspa:gsbpmSubProcess <${GSBPMSub}> .
     ?definition cspa:aimsAt ?function .
     ?service cspa:hasPackageDefinition ?definition .
     ?service cspa:label ?label
   }
 `
 
+/**
+ * Builds the query that retrieves the list of all CSPA services in a given GSBPM phase.
+ */
+const servicesByGSBPMPhase = (GSBPMPhase) => `
+  PREFIX gsbpm: <${GSBPMPrefix}>
+  PREFIX skos:  <${SKOSPrefix}>
+  PREFIX cspa:  <${CSPAPrefix}>
+
+  SELECT ?service ?label WHERE {
+    <${GSBPMPhase}> skos:narrower ?subprocess .
+    ?function cspa:gsbpmSubProcess ?subprocess .
+    ?definition cspa:aimsAt ?function .
+    ?service cspa:hasPackageDefinition ?definition .
+    ?service cspa:label ?label
+  }
+`
+
+/**
+ * Builds the query that retrieves the details for a GSIM class
+ */
+const GSIMClassDetails = GSIMClass => `
+  PREFIX gsim: <${GSIMPrefix}>
+  PREFIX rdfs:  <${RDFSPrefix}>
+
+  SELECT ?label ?definition ?explanatoryText
+  WHERE {
+    <${GSIMClass}> rdfs:label ?label ;
+                   gsim:classDefinition ?definition ;
+    OPTIONAL { <${GSIMClass}>  gsim:classExplanatoryText ?explanatoryText }
+  }
+`
+
+/**
+ * Builds the query that retrieves the details for a GSBPM sub process
+ */
+const GSBPMSubProcessDetails = GSBPMSub => `
+  PREFIX gsbpm: <${GSBPMPrefix}>
+  PREFIX skos:  <${SKOSPrefix}>
+
+  SELECT ?label ?code ?definition
+  WHERE {
+    <${GSBPMSub}> skos:prefLabel ?label ;
+                  skos:notation ?code ;
+                  skos:definition ?definition
+  }
+`
+
+/**
+ * Builds the query that retrieves the details for a GSBPM sub process
+ */
+const GSBPMPhaseDetails = GSBPMPhase => `
+  PREFIX gsbpm: <${GSBPMPrefix}>
+  PREFIX skos:  <${SKOSPrefix}>
+
+  SELECT ?label ?code ?definition
+  WHERE {
+    <${GSBPMPhase}> skos:prefLabel ?label ;
+                  skos:notation ?code ;
+                  skos:definition ?definition
+  }
+`
+/**
+ * Builds the query that retrives all the organizations
+ */
+const organizations = () => `
+  PREFIX org: <${ORGPrefix}>
+  PREFIX skos:  <${SKOSPrefix}>
+
+  SELECT ?org ?label
+  WHERE {
+    ?org a org:Organization ;
+         skos:prefLabel ?label
+  }
+`
 export default {
   NSIList,
+  NSIDetails,
   GSBPMDescription,
   services,
   serviceDetails,
@@ -276,6 +381,11 @@ export default {
   subprocesses,
   GSIMClasses,
   GSIMAllClasses,
-  servicesBySubProcess,
-  GSIMGroups
+  servicesByGSBPMSubProcess,
+  servicesByGSBPMPhase,
+  GSIMGroups,
+  GSIMClassDetails,
+  GSBPMSubProcessDetails,
+  GSBPMPhaseDetails,
+  organizations
 }

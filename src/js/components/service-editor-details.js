@@ -2,16 +2,18 @@ import React, { Component , PropTypes} from 'react'
 import ServiceSubEntities from './service-sub-entities'
 import { uriToLink } from '../routes'
 import { AddGSIM, AddGSBPM } from './add-gsim-gsbpm.js'
+import OrganizationPicker from './organization-picker'
 
 export default function ServiceEditorDetails({ descr, editing, editUtils }) {
   const  {
-    label, description, outcomes, restrictions,
+    name, graphName,
+    label, description, outcomes, restrictions, builderOrgLabel, builderOrg,
     inputs, outputs, subs
   } = descr
   
   const {
     hndlLabelChange, hndlDescriptionChange, hndlOutcomesChange,
-    hndlRestrictionsChange,
+    hndlRestrictionsChange, hndlBuilderOrgChange,
     addInput, addOutput, addSubprocess,
     removeInput, removeOutput, removeSubprocess
   } = editUtils
@@ -52,7 +54,15 @@ export default function ServiceEditorDetails({ descr, editing, editUtils }) {
             value={restrictions}
             onChange={ e => hndlRestrictionsChange(e.target.value) }/>
         </div>
-      </div>             
+      </div>
+      <div className="form-group">
+        <label className="col-sm-3 control-label">Builder organization</label>
+        <div className="col-sm-9">
+          <OrganizationPicker disabled={!editing} 
+            value={builderOrg}
+            onChange={org => hndlBuilderOrgChange(org)} />
+        </div>
+      </div>                
       <div className="form-group">
         <label className="col-sm-3 control-label">Subprocess</label>
         <div className="col-sm-9">
@@ -60,7 +70,7 @@ export default function ServiceEditorDetails({ descr, editing, editUtils }) {
             disabled={!editing}
             entities={subs}
             uriName="sub"
-            makeLink={uriToLink.servicesBySubProcess}
+            makeLink={uriToLink.GSBPMSubProcessDetails}
             noMsg="No GSBPM subprocess"
             add={addSubprocess}
             remove={removeSubprocess} />
@@ -76,7 +86,7 @@ export default function ServiceEditorDetails({ descr, editing, editUtils }) {
             disabled={!editing}
             entities={inputs}
             uriName="gsimClass"
-            makeLink={uriToLink.servicesByGsim}
+            makeLink={uriToLink.GSIMClassDetails}
             noMsg="No GSIM input"
             add={addInput}
             remove={removeInput} />
@@ -92,7 +102,7 @@ export default function ServiceEditorDetails({ descr, editing, editUtils }) {
             disabled={!editing}
             entities={outputs}
             uriName="gsimClass"
-            makeLink={uriToLink.servicesByGsim}
+            makeLink={uriToLink.GSIMClassDetails}
             noMsg="No GSIM ouput"
             add={addOutput}
             remove={removeOutput} />

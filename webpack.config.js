@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
+var TransferWebpackPlugin = require('transfer-webpack-plugin');
+var path = require('path');
 
 module.exports = {
   entry: [
@@ -25,12 +27,18 @@ module.exports = {
           'presets': ['react', 'es2015'],
           'plugins': ['transform-object-rest-spread', 'import-asserts']
         }
-      }
+      },
+      { test: /\.svg$/, loader: 'file?name=/flags/[name].[ext]' }
     ]
   },
   postcss: function () {
     return [precss, autoprefixer({ browsers: ['> 5%'] })]
-  },  
+  },
+  plugins: [
+    new TransferWebpackPlugin([
+        { from: 'img', to: 'img' }
+    ], path.join(__dirname, 'src'))
+  ],  
   resolve: {
     extensions: ['', '.js']
   },

@@ -1,0 +1,444 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix nsi: <http://id.unece.org/nsi/> .
+
+<http://stamina-project.org/graphs/nsis> {
+	nsi:MT a org:Organization ;
+		skos:prefLabel "National Statistics Office" ;
+		org:hasSite nsi:MT\/hq .
+	
+	nsi:MT\/hq a org:Site .
+	
+	nsi:CO\/hq a org:Site .
+	
+	nsi:MD\/hq a org:Site .
+	
+	nsi:EE\/hq a org:Site .
+	
+	nsi:TM a org:Organization ;
+		skos:prefLabel "State Committee on Statistics of Turkmenistan" ;
+		org:hasSite nsi:TM\/hq .
+	
+	nsi:TM\/hq a org:Site .
+	
+	nsi:PL a org:Organization ;
+		skos:prefLabel "Central Statistical Office of Poland" ;
+		org:hasSite nsi:PL\/hq .
+	
+	nsi:PL\/hq a org:Site .
+	
+	nsi:MN a org:Organization ;
+		skos:prefLabel "National Registration and Statistics Office of Mongolia" ;
+		org:hasSite nsi:MN\/hq .
+	
+	nsi:MN\/hq a org:Site .
+	
+	nsi:MX\/hq a org:Site .
+	
+	nsi:JP a org:Organization ;
+		skos:prefLabel "Statistics Bureau of Japan, Ministry of Internal Affairs and Communications" ;
+		org:hasSite nsi:JP\/hq .
+	
+	nsi:JP\/hq a org:Site .
+	
+	nsi:GR a org:Organization ;
+		skos:prefLabel "Hellenic Statistical Authority" ;
+		org:hasSite nsi:GR\/hq ;
+		skos:altLabel "ELSTAT" .
+	
+	nsi:GR\/hq a org:Site .
+	
+	nsi:AD\/hq a org:Site .
+	
+	nsi:AM\/hq a org:Site .
+	
+	nsi:BY\/hq a org:Site .
+	
+	nsi:HU a org:Organization ;
+		skos:prefLabel "Hungarian Central Statistical Office" ;
+		org:hasSite nsi:HU\/hq .
+	
+	nsi:HU\/hq a org:Site .
+	
+	nsi:IN\/hq a org:Site .
+	
+	nsi:LV a org:Organization ;
+		skos:prefLabel "Central Statistical Bureau of Latvia" ;
+		org:hasSite nsi:LV\/hq .
+	
+	nsi:LV\/hq a org:Site .
+	
+	nsi:BY a org:Organization ;
+		skos:prefLabel "National Statistical Committee of the Republic of Belarus" ;
+		org:hasSite nsi:BY\/hq .
+	
+	nsi:FI a org:Organization ;
+		skos:prefLabel "Statistics Finland" ;
+		org:hasSite nsi:FI\/hq .
+	
+	nsi:FI\/hq a org:Site .
+	
+	nsi:CN\/hq a org:Site .
+	
+	nsi:MC\/hq a org:Site .
+	
+	nsi:SW\/hq a org:Site .
+	
+	nsi:AL\/hq a org:Site .
+	
+	nsi:TR a org:Organization ;
+		skos:prefLabel "Turkish Statistical Institute" ;
+		org:hasSite nsi:TR\/hq .
+	
+	nsi:TR\/hq a org:Site .
+	
+	nsi:KG a org:Organization ;
+		skos:prefLabel "National Statistical Committee of the Kyrgyz Republic" ;
+		org:hasSite nsi:KG\/hq .
+	
+	nsi:KG\/hq a org:Site .
+	
+	nsi:NL\/hq a org:Site .
+	
+	nsi:SI a org:Organization ;
+		skos:prefLabel "Statistical Office of the Republic of Slovenia" ;
+		org:hasSite nsi:SI\/hq .
+	
+	nsi:SI\/hq a org:Site .
+	
+	nsi:IL a org:Organization ;
+		skos:prefLabel "Central Bureau of Statistics" ;
+		org:hasSite nsi:IL\/hq .
+	
+	nsi:IL\/hq a org:Site .
+	
+	nsi:BA\/hq a org:Site .
+	
+	nsi:UA\/hq a org:Site .
+	
+	nsi:MK\/hq a org:Site .
+	
+	nsi:SM\/hq a org:Site .
+	
+	nsi:AD a org:Organization ;
+		skos:prefLabel "Department of Studies and Statistics, Ministry of Finance" ;
+		org:hasSite nsi:AD\/hq .
+	
+	nsi:GB\/hq a org:Site .
+	
+	nsi:KR a org:Organization ;
+		skos:prefLabel "Statistics Korea" ;
+		org:hasSite nsi:KR\/hq .
+	
+	nsi:KR\/hq a org:Site .
+	
+	nsi:AU a org:Organization ;
+		skos:prefLabel "Australian Bureau of Statistics" ;
+		org:hasSite nsi:AU\/hq .
+	
+	nsi:AU\/hq a org:Site .
+	
+	nsi:EE a org:Organization ;
+		skos:prefLabel "Statistics Estonia" ;
+		org:hasSite nsi:EE\/hq .
+	
+	nsi:BG a org:Organization ;
+		skos:prefLabel "National Statistical Institute of Bulgaria" ;
+		org:hasSite nsi:BG\/hq .
+	
+	nsi:BG\/hq a org:Site .
+	
+	nsi:LU a org:Organization ;
+		skos:prefLabel "Central Service of Statistics and Economic Studies" ;
+		org:hasSite nsi:LU\/hq ;
+		skos:altLabel "STATEC" .
+	
+	nsi:LU\/hq a org:Site .
+	
+	nsi:DK\/hq a org:Site .
+	
+	nsi:RU\/hq a org:Site .
+	
+	nsi:MX a org:Organization ;
+		skos:prefLabel "National Institute of Statistics, Geography and Informatics" ;
+		org:hasSite nsi:MX\/hq ;
+		skos:altLabel "INEGI" .
+	
+	nsi:CA\/hq a org:Site .
+	
+	nsi:UZ a org:Organization ;
+		skos:prefLabel "State Committee on Statistics" ;
+		org:hasSite nsi:UZ\/hq ;
+		skos:altLabel "Goskomstat" .
+	
+	nsi:UZ\/hq a org:Site .
+	
+	nsi:BA a org:Organization ;
+		skos:prefLabel "Agency for Statistics of Bosnia and Herzegovina" ;
+		org:hasSite nsi:BA\/hq .
+	
+	nsi:BR a org:Organization ;
+		skos:prefLabel "Brazilian Institute of Geography and Statistics" ;
+		org:hasSite nsi:BR\/hq ;
+		skos:altLabel "IBGE" .
+	
+	nsi:BR\/hq a org:Site .
+	
+	nsi:CL\/hq a org:Site .
+	
+	nsi:HK\/hq a org:Site .
+	
+	nsi:GE a org:Organization ;
+		skos:prefLabel "National Statistics Office of Georgia" ;
+		org:hasSite nsi:GE\/hq ;
+		skos:altLabel "Geostat" .
+	
+	nsi:GE\/hq a org:Site .
+	
+	nsi:ZA\/hq a org:Site .
+	
+	nsi:AZ a org:Organization ;
+		skos:prefLabel "State Statistical Committee of the Republic of Azerbaijan" ;
+		org:hasSite nsi:AZ\/hq .
+	
+	nsi:AZ\/hq a org:Site .
+	
+	nsi:LI a org:Organization ;
+		skos:prefLabel "Amt für Volkswirtschaft Statistik" ;
+		org:hasSite nsi:LI\/hq .
+	
+	nsi:LI\/hq a org:Site .
+	
+	nsi:TJ\/hq a org:Site .
+	
+	nsi:CO a org:Organization ;
+		skos:prefLabel "National Department of Statistics" ;
+		org:hasSite nsi:CO\/hq .
+	
+	nsi:LT\/hq a org:Site .
+	
+	nsi:NO a org:Organization ;
+		skos:prefLabel "Statistics Norway" ;
+		org:hasSite nsi:NO\/hq .
+	
+	nsi:NO\/hq a org:Site .
+	
+	nsi:IT\/hq a org:Site .
+	
+	nsi:AT a org:Organization ;
+		skos:prefLabel "Statistics Austria" ;
+		org:hasSite nsi:AT\/hq .
+	
+	nsi:AT\/hq a org:Site .
+	
+	nsi:IE a org:Organization ;
+		skos:prefLabel "Central Statistics Office" ;
+		org:hasSite nsi:IE\/hq .
+	
+	nsi:IE\/hq a org:Site .
+	
+	nsi:LT a org:Organization ;
+		skos:prefLabel "Statistics Lithuania" ;
+		org:hasSite nsi:LT\/hq .
+	
+	nsi:ZA a org:Organization ;
+		skos:prefLabel "Statistics South Africa" ;
+		org:hasSite nsi:ZA\/hq .
+	
+	nsi:ES\/hq a org:Site .
+	
+	nsi:SK\/hq a org:Site .
+	
+	nsi:CZ a org:Organization ;
+		skos:prefLabel "Czech Statistical Office" ;
+		org:hasSite nsi:CZ\/hq .
+	
+	nsi:CZ\/hq a org:Site .
+	
+	nsi:PT\/hq a org:Site .
+	
+	nsi:US\/hq a org:Site .
+	
+	nsi:NZ a org:Organization ;
+		skos:prefLabel "Statistics New Zealand" ;
+		org:hasSite nsi:NZ\/hq .
+	
+	nsi:NZ\/hq a org:Site .
+	
+	nsi:RS\/hq a org:Site .
+	
+	nsi:SM a org:Organization ;
+		skos:prefLabel "Office for Economic Planning, Data processing and Statistics" ;
+		org:hasSite nsi:SM\/hq .
+	
+	nsi:FR a org:Organization ;
+		skos:prefLabel "National Institute of Statistics and Economic Studies" ;
+		org:hasSite nsi:FR\/hq ;
+		skos:altLabel "INSEE" .
+	
+	nsi:FR\/hq a org:Site .
+	
+	nsi:CH\/hq a org:Site .
+	
+	nsi:IS\/hq a org:Site .
+	
+	nsi:US a org:Organization ;
+		skos:prefLabel "Office of Management and Budget, Executive Office of the President" ;
+		org:hasSite nsi:US\/hq .
+	
+	nsi:PH\/hq a org:Site .
+	
+	nsi:RU a org:Organization ;
+		skos:prefLabel "Federal State Statistics Service" ;
+		org:hasSite nsi:RU\/hq ;
+		skos:altLabel "Rosstat" .
+	
+	nsi:HR\/hq a org:Site .
+	
+	nsi:MK a org:Organization ;
+		skos:prefLabel "State Statistical Office of the Republic of Macedonia" ;
+		org:hasSite nsi:MK\/hq .
+	
+	nsi:CN a org:Organization ;
+		skos:prefLabel "National Bureau of Statistics of China" ;
+		org:hasSite nsi:CN\/hq .
+	
+	nsi:TJ a org:Organization ;
+		skos:prefLabel "Agency on Statistics of the Republic of Tajikistan" ;
+		org:hasSite nsi:TJ\/hq .
+	
+	nsi:RO a org:Organization ;
+		skos:prefLabel "National Institute of Statistics" ;
+		org:hasSite nsi:RO\/hq .
+	
+	nsi:RO\/hq a org:Site .
+	
+	nsi:HR a org:Organization ;
+		skos:prefLabel "Central Bureau of Statistics" ;
+		org:hasSite nsi:HR\/hq .
+	
+	nsi:BE a org:Organization ;
+		skos:prefLabel "Statistics Belgium" ;
+		org:hasSite nsi:BE\/hq .
+	
+	nsi:BE\/hq a org:Site .
+	
+	nsi:ID a org:Organization ;
+		skos:prefLabel "Biro Pusat Statistik, Central Bureau of Statistics" ;
+		org:hasSite nsi:ID\/hq ;
+		skos:altLabel "BPS" .
+	
+	nsi:ID\/hq a org:Site .
+	
+	nsi:CH a org:Organization ;
+		skos:prefLabel "Swiss Federal Statistical Office" ;
+		org:hasSite nsi:CH\/hq .
+	
+	nsi:ME a org:Organization ;
+		skos:prefLabel "Statistical Office of Montenegro" ;
+		org:hasSite nsi:ME\/hq ;
+		skos:altLabel "MONSTAT" .
+	
+	nsi:ME\/hq a org:Site .
+	
+	nsi:PT a org:Organization ;
+		skos:prefLabel "National Statistical Institute" ;
+		org:hasSite nsi:PT\/hq .
+	
+	nsi:CY a org:Organization ;
+		skos:prefLabel "Statistical Service of Cyprus" ;
+		org:hasSite nsi:CY\/hq .
+	
+	nsi:CY\/hq a org:Site .
+	
+	nsi:DK a org:Organization ;
+		skos:prefLabel "Statistics Denmark" ;
+		org:hasSite nsi:DK\/hq .
+	
+	nsi:AM a org:Organization ;
+		skos:prefLabel "National Statistical Service of the Republic of Armenia" ;
+		org:hasSite nsi:AM\/hq .
+	
+	nsi:DE a org:Organization ;
+		skos:prefLabel "German Federal Statistical Office" ;
+		org:hasSite nsi:DE\/hq .
+	
+	nsi:DE\/hq a org:Site .
+	
+	nsi:UA a org:Organization ;
+		skos:prefLabel "State Statistics Service of Ukraine" ;
+		org:hasSite nsi:UA\/hq .
+	
+	nsi:PH a org:Organization ;
+		skos:prefLabel "Philippine Statistics Authority" ;
+		org:hasSite nsi:PH\/hq ;
+		skos:altLabel "ONS" .
+	
+	nsi:SW a org:Organization ;
+		skos:prefLabel "Statistics Sweden" ;
+		org:hasSite nsi:SW\/hq .
+	
+	nsi:ES a org:Organization ;
+		skos:prefLabel "National Statistical Institute of Spain" ;
+		org:hasSite nsi:ES\/hq .
+	
+	nsi:MD a org:Organization ;
+		skos:prefLabel "National Bureau of Statistics of the Republic of Moldova" ;
+		org:hasSite nsi:MD\/hq .
+	
+	nsi:IT a org:Organization ;
+		skos:prefLabel "Istituto Nazionale di Statistica" ;
+		org:hasSite nsi:IT\/hq ;
+		skos:altLabel "ISTAT" .
+	
+	nsi:AL a org:Organization ;
+		skos:prefLabel "Institute of Statistics" ;
+		org:hasSite nsi:AL\/hq .
+	
+	nsi:HK a org:Organization ;
+		skos:prefLabel "Census and Statistics Department" ;
+		org:hasSite nsi:HK\/hq .
+	
+	nsi:KZ a org:Organization ;
+		skos:prefLabel "Committee on statistics, Ministry of national economy of the Republic of Kazakhstan" ;
+		org:hasSite nsi:KZ\/hq .
+	
+	nsi:KZ\/hq a org:Site .
+	
+	nsi:SK a org:Organization ;
+		skos:prefLabel "Statistical Office of the Slovak Republic" ;
+		org:hasSite nsi:SK\/hq .
+	
+	nsi:IN a org:Organization ;
+		skos:prefLabel "Ministry of Statistics and Programme Implementation" ;
+		org:hasSite nsi:IN\/hq .
+	
+	nsi:CA a org:Organization ;
+		skos:prefLabel "Statistics Canada" ;
+		org:hasSite nsi:CA\/hq .
+	
+	nsi:GB a org:Organization ;
+		skos:prefLabel "United Kingdom Statistics Authority" ;
+		org:hasSite nsi:GB\/hq .
+	
+	nsi:RS a org:Organization ;
+		skos:prefLabel "Statistical Office of the Republic of Serbia" ;
+		org:hasSite nsi:RS\/hq .
+	
+	nsi:CL a org:Organization ;
+		skos:prefLabel "National Statistical Institute" ;
+		org:hasSite nsi:CL\/hq ;
+		skos:altLabel "INE" .
+	
+	nsi:NL a org:Organization ;
+		skos:prefLabel "Statistics Netherlands" ;
+		org:hasSite nsi:NL\/hq .
+	
+	nsi:IS a org:Organization ;
+		skos:prefLabel "Statistics Iceland" ;
+		org:hasSite nsi:IS\/hq .
+	
+	nsi:MC a org:Organization ;
+		skos:prefLabel "Statistics and Economic Studies Division" ;
+		org:hasSite nsi:MC\/hq .
+}

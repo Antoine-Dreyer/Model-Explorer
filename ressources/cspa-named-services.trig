@@ -5,6 +5,7 @@
 @prefix org:<http://www.w3.org/ns/org#> .
 @prefix service:<http://unece.org/services#> .
 @prefix stamina:<http://stamina-project.org/graphs/cspa-service/> .
+@prefix nsi:<http://id.unece.org/nsi/> .
 
 stamina:RetrieveStatisticalClassification {
 	service:RetrieveStatisticalClassification a cspa:package;
@@ -20,7 +21,7 @@ stamina:RetrieveStatisticalClassification {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:NO
+					cspa:organization nsi:NO
 				]
 			]
 		]
@@ -49,7 +50,7 @@ stamina:ListStatisticalClassifications {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:NO
+					cspa:organization nsi:NO
 				]
 			]
 		]
@@ -81,7 +82,7 @@ stamina:SampleSelection {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:NL
+					cspa:organization nsi:NL
 				]
 			]
 		]
@@ -119,7 +120,7 @@ stamina:LinearRuleChecking {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:NL
+					cspa:organization nsi:NL
 				]
 			]
 		]
@@ -153,7 +154,7 @@ stamina:DataSetRe-Code {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:OECD
+					cspa:organization nsi:OECD
 				]
 			]
 		]
@@ -185,7 +186,7 @@ stamina:ErrorCorrection {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:IT
+					cspa:organization nsi:IT
 				]
 			]
 		]
@@ -194,7 +195,7 @@ stamina:ErrorCorrection {
 
 stamina:LinearErrorLocalization {
 	service:LinearErrorLocalization a cspa:package;
-	cspa:label " Linear Error Localization";
+	cspa:label "Linear Error Localization";
 	cspa:hasPackageDefinition [ a cspa:ServiceDefinition; 
 	cspa:aimsAt[ a cspa:BusinessFunction ; 
 	    cspa:description "The service flags (the minimal number of) values in a Data Set that should be adapted to achieve compliance with a predefined set of Restriction Rules (according to the principle of Fellegi and Holt). In literature these rules are usually referred to as edit rules."; 
@@ -221,7 +222,7 @@ stamina:LinearErrorLocalization {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:NL
+					cspa:organization nsi:NL
 				]
 			]
 		]
@@ -257,7 +258,7 @@ stamina:SeasonalAdjustment {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:FR
+					cspa:organization nsi:FR
 				]
 			]
 		]
@@ -290,7 +291,7 @@ stamina:StatisticalChartGenerator {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:OECD
+					cspa:organization nsi:OECD
 				]
 			]
 		]
@@ -321,7 +322,7 @@ stamina:ConfidentializedAnalysis {
 		cspa:hasPackageImplementation [ a cspa:ServiceImplementationDescription;
 			cspa:comesFrom [ a cspa:Provenance; 
 				cspa:builderOrganization [ a cspa:Organization;
-					cspa:organization org:CA
+					cspa:organization nsi:CA
 				]
 			]
 		]

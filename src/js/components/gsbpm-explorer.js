@@ -1,5 +1,7 @@
 import React from 'react'
 import { sparqlConnect } from '../sparql/configure-sparql'
+import { uriToLink } from '../routes'
+import { Link } from 'react-router'
 import { LOADING, LOADED, FAILED } from 'sparql-connect'
 import { groupByWithOrder } from '../utils/group-by'
 import GSBPMSubprocess from './gsbpm-subprocess'
@@ -27,7 +29,8 @@ function GSBPMPhasesList({refinedPhases}) {
   return(
     <div className="phases">
 		  {refinedPhases.map(
-        ({ id, props, entries }) => <GSBPMPhase id={id}	phaseLabel={props.phaseLabel}	entries={entries}/>
+        ({ id, props, entries }) => <GSBPMPhase
+          key={id} id={id}	phaseLabel={props.phaseLabel}	entries={entries}/>
 		    )
 		  }
     </div>
@@ -39,9 +42,11 @@ function GSBPMPhasesList({refinedPhases}) {
 */
 function GSBPMPhase({id, phaseLabel, entries}) {
   return(
-    <div key={id} className="phase">
+    <div className="phase">
       <div className="cell title">
-        {phaseLabel}
+        <a href={uriToLink.GSBPMPhaseDetails(id)} >
+          <div>{phaseLabel}</div>
+        </a>
       </div>
       <GSBPMSubprocessList entries={entries}/>
     </div>
@@ -55,12 +60,20 @@ function GSBPMSubprocessList({entries}) {
 	return(
     <div className="subprocesses">
       <ul>
-        {entries.sort((a, b) => {return a.subprocessCode > b.subprocessCode})
-                .map(({subprocess, subprocessCode, subprocessLabel, prefLabel, subprocessDefinition}) =>
-                  <li key={subprocess}>
-                    <GSBPMSubprocess subprocess={subprocess} code={subprocessCode} label={subprocessLabel} prefLabel={prefLabel} definition={subprocessDefinition} active={true}/>
-                  </li>
-                )
+        {
+          entries
+            .sort((a, b) => {
+              const left = a.subprocessCode
+              const right = b.subprocessCode
+              return right < left ? 1 :
+                     right === left ? 0 :
+                     -1
+            })
+            .map(({subprocess, subprocessCode, subprocessLabel, prefLabel, subprocessDefinition}) =>
+              <li key={subprocess}>
+                <GSBPMSubprocess subprocess={subprocess} code={subprocessCode} label={subprocessLabel} prefLabel={prefLabel} definition={subprocessDefinition} active={true}/>
+              </li>
+            )
         }
       </ul>
     </div>

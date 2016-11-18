@@ -9,12 +9,13 @@ and unique identifiers (most of the time URI).
 const servicePrefix = 'http://unece.org/services#'
 const GSIMPrefix = 'http://rdf.unece.org/models/gsim#'
 const GSBPMPrefix = 'http://id.unece.org/models/gsbpm/'
+const NSIPrefix = 'http://id.unece.org/nsi/'
 
 const regedPrefix = (prefix) => new RegExp(prefix + '(.*)')
 
 /*
-React router doesn't support point (.) in the URL.
-We have to translate point in id to underscore,
+React router doesn't support dot (.) in the URL.
+We have to translate dot in id to underscore,
 and back.
 */
 const pointToUnderscore = (str) => str.replace('.', '_')
@@ -43,28 +44,48 @@ const routes = {
       return `/service/${serviceId}`
     }
   },
-  servicesByGsim: {
-    pattern: ':gsimClass',
-    paramsToProps: (state, { gsimClass }) => ({
-      gsimClass: `${GSIMPrefix}${gsimClass}`
+  GSIMClassDetails: {
+    pattern: ':GSIMClass',
+    paramsToProps: (state, { GSIMClass }) => ({
+      GSIMClass: `${GSIMPrefix}${GSIMClass}`
     }),
     uriToLink: uri => {
-      const gsimClass = uri.match(regedPrefix(GSIMPrefix))[1]
-      return `/gsim/${gsimClass}`
+      const GSIMClass = uri.match(regedPrefix(GSIMPrefix))[1]
+      return `/gsim/${GSIMClass}`
     }
   },
   //TODO we should define these mappings in a hierarchical way, corresponding
   //to the hierarchy of routes defined in `Root` (to avoid mistakes like
-  //defining a mapping for the pattern `gsbpm:subprocess` instead of
-  //`:subprocess`)
-  servicesBySubProcess: {
-    pattern: ':subprocess',
-    paramsToProps: (state, { subprocess }) => ({
-      subprocess: `${GSBPMPrefix}${underscoreToPoint(subprocess)}`
+  //defining a mapping for the pattern `gsbpm:GSBPMSub` instead of
+  //`:GSBPMSub`)
+  GSBPMSubProcessDetails: {
+    pattern: 'subprocess/:GSBPMSub',
+    paramsToProps: (state, { GSBPMSub }) => ({
+      GSBPMSub: `${GSBPMPrefix}${underscoreToPoint(GSBPMSub)}`
     }),
     uriToLink: uri => {
-      const subprocessId = uri.match(regedPrefix(GSBPMPrefix))[1]
-      return `/gsbpm/${pointToUnderscore(subprocessId)}`
+      const GSBPMSubId = uri.match(regedPrefix(GSBPMPrefix))[1]
+      return `/gsbpm/subprocess/${pointToUnderscore(GSBPMSubId)}`
+    }
+  },
+  GSBPMPhaseDetails: {
+    pattern: 'phase/:GSBPMPhase',
+    paramsToProps: (state, { GSBPMPhase }) => ({
+      GSBPMPhase: `${GSBPMPrefix}${underscoreToPoint(GSBPMPhase)}`
+    }),
+    uriToLink: uri => {
+      const GSBPMPhaseId = uri.match(regedPrefix(GSBPMPrefix))[1]
+      return `/gsbpm/phase/${pointToUnderscore(GSBPMPhaseId)}`
+    }
+  },
+  NSIDetails: {
+    pattern: ':NSIId',
+    paramsToProps: (state, { NSIId }) => ({
+      nsi: `${NSIPrefix}${NSIId}`
+    }),
+    uriToLink: uri => {
+      const NSIId = uri.match(regedPrefix(NSIPrefix))[1]
+      return `/nsis/${NSIId}`
     }
   }
 }

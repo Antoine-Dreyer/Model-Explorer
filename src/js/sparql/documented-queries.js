@@ -2,6 +2,7 @@ import queries from './queries'
 
 const {
   NSIList,
+  NSIDetails,
   GSBPMDescription,
   subprocessServices,
   services,
@@ -14,8 +15,13 @@ const {
   GSIMClasses,
   GSIMAllClasses,
   subprocesses,
-  servicesBySubProcess,
-  GSIMGroups
+  servicesByGSBPMSubProcess,
+  servicesByGSBPMPhase,
+  GSIMGroups,
+  GSIMClassDetails,
+  GSBPMSubProcessDetails,
+  GSBPMPhaseDetails,
+  organizations
 } = queries
 
 const queries_ = {
@@ -28,6 +34,21 @@ const queries_ = {
       label: 'label of the NSI'
     },
     queryBuilder: NSIList
+  },
+  NSIDetails: {
+    descr: 'Retrieve details for an NSI',
+    singleResult: true,
+    params: [{
+      name: 'nsi',
+      descr: 'Statistical institute (uri)'
+    }],
+    results: {
+      name: 'NSI name',
+      shortName: 'NSI short name',
+      address: 'NSI address',
+      geo: 'NSI coordinates (geo URI)'
+    },
+    queryBuilder: NSIDetails
   },
   GSBPMDescription: {
     descr: 'Retrieve a global description of the GSBPM',
@@ -75,9 +96,9 @@ const queries_ = {
       label: 'service label',
       description: 'service description',
       outcomes: 'outcomes',
-      subprocess: 'subprocess',
       restrictions: 'restrictions',
-      serviceGraph: 'service graph'
+      graphName: 'service graph name',
+      builderOrg: 'builder organization (uri)'
     },
     queryBuilder: serviceDetails
   },
@@ -124,7 +145,7 @@ const queries_ = {
     descr: 'Retrieve all services with the given gsim class as input',
     whatWeGet: 'services',
     params: [{
-      name: 'gsimClass'
+      name: 'GSIMClass'
     }],
     results: {
       service: 'service (uri)',
@@ -136,7 +157,7 @@ const queries_ = {
     descr: 'Retrieve all services with the given gsim class as output',
     whatWeGet: 'services',
     params: [{
-      name: 'gsimClass'
+      name: 'GSIMClass'
     }],
     results: {
       service: 'service (uri)',
@@ -180,12 +201,12 @@ const queries_ = {
     },
     queryBuilder: GSIMAllClasses
   },
-  servicesBySubProcess: {
+  servicesByGSBPMSubProcess: {
     descr: 'Retrieve a list of services implementing a GSBPM subprocess',
     whatWeGet: 'services',
     params: [
       {
-        name: 'subprocess',
+        name: 'GSBPMSub',
         descr: 'The subprocess id'
       }
     ],
@@ -193,7 +214,22 @@ const queries_ = {
       service: 'CSPA Service (uri)',
       label: 'CSPA Service label'
     },
-    queryBuilder: servicesBySubProcess
+    queryBuilder: servicesByGSBPMSubProcess
+  },
+  servicesByGSBPMPhase: {
+    descr: 'Retrieve a list of services implementing a GSBPM phase',
+    whatWeGet: 'services',
+    params: [
+      {
+        name: 'GSBPMPhase',
+        descr: 'The phase id'
+      }
+    ],
+    results: {
+      service: 'CSPA Service (uri)',
+      label: 'CSPA Service label'
+    },
+    queryBuilder: servicesByGSBPMPhase
   },
   GSIMGroups: {
     descr: 'Retrieve the GSIM groups',
@@ -204,6 +240,58 @@ const queries_ = {
       label: 'Group label'
     },
     queryBuilder: GSIMGroups
+  },
+  GSIMClassDetails: {
+    descr: 'Retrieve details for a GSIM class',
+    singleResult: true,
+    params: [{
+      name: 'GSIMClass',
+      descr: 'The GSIM class (uri)'
+    }],
+    results: {
+      label: 'Label of the GSIM class',
+      explanatoryText: 'Explanatory text for the GSIM class',
+      definition: 'Definition for the GSIM class'
+    },
+    queryBuilder: GSIMClassDetails
+  },
+  GSBPMSubProcessDetails: {
+    descr: 'Retrieve details for a GSBPM sub process',
+    singleResult: true,
+    params: [{
+      name: 'GSBPMSub',
+      descr: 'The GSBPM sub process (uri)'
+    }],
+    results: {
+      label: 'Label of the GSBPM sub process',
+      code: 'Code of the GSBPM sub process',
+      definition: 'Definition of the GSBPM sub process'
+    },
+    queryBuilder: GSBPMSubProcessDetails
+  },
+  GSBPMPhaseDetails: {
+    descr: 'Retrieve details for a GSBPM phase',
+    singleResult: true,
+    params: [{
+      name: 'GSBPMPhase',
+      descr: 'The GSBPM sub process (uri)'
+    }],
+    results: {
+      label: 'Label of the GSBPM phase',
+      code: 'Code of the GSBPM phase',
+      definition: 'Definition of the GSBPM phase'
+    },
+    queryBuilder: GSBPMPhaseDetails
+  },
+  organizations: {
+    descr: 'Retrieve all the organizations',
+    params: [],
+    results: {
+      org: 'organization (uri)',
+      label: 'organization label'
+    },
+    whatWeGet: 'organizations',
+    queryBuilder: organizations
   }
 }
 

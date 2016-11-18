@@ -5,13 +5,15 @@ import { LOADED } from 'sparql-connect'
 function AddButton({ disabled, hndlClick, label }) {
   return (
     <div className="form-group">
-      <div className="col-sm-2 col-sm-offset-10">
-        <button className="form-control btn btn-default btn-sm"
-        onClick={e => { e.preventDefault(); hndlClick() }} 
-        disabled={disabled} >
-        <span className="glyphicon glyphicon-plus"></span>&nbsp;
-        {label}
+      <div className="col-sm-3 col-sm-offset-9">
+        { !disabled && 
+          <button 
+            className="form-control btn btn-default btn-sm"
+            onClick={e => { e.preventDefault(); hndlClick() }} >
+          <span className="glyphicon glyphicon-plus"></span>&nbsp;
+          {label}
         </button>
+      }
       </div>
     </div>
   )

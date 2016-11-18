@@ -5,8 +5,10 @@ import { uriToLink } from '../routes'
 import { createService } from '../sparql/updates'
 import ServiceEditorDetails from './service-editor-details'
 import { removeInArrByKey, addInArr } from '../utils/arrays'
+import { CSPANamed, servicePrefix } from '../sparql/prefixes'
+import { flush } from '../sparql/configure-sparql'
 
-export default class ServiceCreator extends Component {
+class ServiceCreator extends Component {
   constructor() {
     super()
     
@@ -15,6 +17,7 @@ export default class ServiceCreator extends Component {
       description: '',
       outcomes: '',
       restrictions: '',
+      builderOrg: '',
       subs: [],
       inputs: [],
       outputs: []
@@ -25,6 +28,7 @@ export default class ServiceCreator extends Component {
       hndlDescriptionChange: description => this.setState({ description }),
       hndlOutcomesChange: outcomes => this.setState({ outcomes }),
       hndlRestrictionsChange: restrictions => this.setState({ restrictions }),
+      hndlBuilderOrgChange: builderOrg => this.setState({ builderOrg }),
       addInput: input => this.setState({
         inputs: addInArr(this.state.inputs, input)
       }),
@@ -47,16 +51,26 @@ export default class ServiceCreator extends Component {
     
     this.create = () => {
       const  {
-        label, description, outcomes, restrictions, inputs, outputs, subs
+        label, description, outcomes, restrictions, builderOrg,
+        inputs, outputs, subs
       } = this.state
+      //TODO avoid empty label
+      //TODO add upper case at the beginning of each word
+      //TODO replace special characters
+      const name = label ? label.replace(/\s*/g, '') : 'EMPTYLABEL'
+      const service = `${servicePrefix}${name}`
+      const graphName = `${CSPANamed}${name}`
+      
       const descr = {
-        label, description, outcomes, restrictions,
+        service, graphName,
+        label, description, outcomes, restrictions, builderOrg,
         inputs: inputs.map(({ gsimClass }) => gsimClass),
         outputs: outputs.map(({ gsimClass }) => gsimClass),
         subs: subs.map(({ sub }) => sub)
       }
       return createService(descr)
         .then(uri => {
+          this.props.flush()
           browserHistory.push(uriToLink.serviceDetails(uri))
         })
     }
@@ -90,3 +104,5 @@ export default class ServiceCreator extends Component {
     )
   }
 }
+
+export default connect(undefined, { flush })(ServiceCreator)

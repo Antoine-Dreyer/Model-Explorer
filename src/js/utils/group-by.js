@@ -47,7 +47,12 @@ export function groupByWithOrder(results, key, sortingKey, ...props) {
     return arr
   }, [])
   return gByRsltsArr.sort((a, b) => {
-    return a.props[sortingKey] > b.props[sortingKey]
+    const left = a.props[sortingKey]
+    const right = b.props[sortingKey]
+    return right < left ? 1 :
+           right === left ? 0 :
+           -1
+        
   })
   
 }

@@ -8,13 +8,14 @@ import ServiceList from './service-list'
 function Services({ loaded, services }) {
   const handleClick = () =>
     browserHistory.push(uriToLink.create())
-  if (loaded !== LOADED) return <span>loading services</span>
+  
   return (
     <div>
-      <ServiceList services={services}/>
+      <ServiceList services={services} loaded={loaded === LOADED}/>
       <button 
         className="btn btn-primary"
         onClick={handleClick}>Create a new service</button>
+      <img src="/img/unece.png" />
     </div>
   )
 }

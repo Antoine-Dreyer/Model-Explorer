@@ -10,17 +10,11 @@ const ALL = 'ALL'
 //TODO use group uri instead of label
 //It allows to improve aesthetics for expected groups (and ensure order) to make
 //the GSIM explorer looks like the image with the four colored squares.
-const knowGroupLabels = [
+const baseGroupLabel = 'Base'
+const otherGroupLabels = [
   'Business', 'Exchange', 'Structures', 'Concepts'
 ]
 
-//TODO merge byGsimInput and byGsimOutput (small icon to differentiate between
-//them)
-
-//FIXME A request is sent even if the data has already been loaded. It does not
-//concern only this component, and it might be an issue with `sparql-connect`
-//with queries that do not take any parameters.
-//
 class GSIMExplorer extends Component {
   constructor() {
     super()
@@ -54,12 +48,12 @@ function GSIMSelectClass_({ loaded, GSIMClasses, selectClass }){
   if (loaded !== LOADED) return <span>loading...</span>
   return (
     <div className="list-group">
-    {
-      GSIMClasses.map(({ GSIMClass, label }) =>
-        <a
-          key={GSIMClass}
-          className="list-group-item"
-          href={uriToLink.servicesByGsim(GSIMClass)}>{label}</a>)
+      {
+        GSIMClasses.map(({ GSIMClass, label }) =>
+          <a
+            key={GSIMClass}
+            className="list-group-item"
+            href={uriToLink.GSIMClassDetails(GSIMClass)}>{label}</a>)
     }
     </div>
   )
@@ -74,32 +68,37 @@ function GSIMSelectGroup_({ loaded, selectedGroup, groups, select, unselect }) {
     return _
   }, {})
   
-  const knownGroups = knowGroupLabels.map(label => groupsByLabel[label])
-  const unknownGroups = groups.filter(group => 
-    knowGroupLabels.indexOf(group.label) === -1
-  )
+  const baseGroup = groupsByLabel[baseGroupLabel]
+  const otherGroups = otherGroupLabels.map(label => groupsByLabel[label])
+  
   const cn = selectedGroup ? 'gsim-select-group-small' : 'gsim-select-group-full'
   return (
-    <div className={cn}>
-      { knownGroups.map(({ group, label }) => {
-          const cn = classnames(
-            `gsim-group-${label.toLowerCase()}`,
-            group === selectedGroup && 'active')
-          return (
-            <div key={group}
-                   className={cn}
-                   onClick={() => select(group)}>
-                {label}
-              </div> 
-          )
-        })
-      }
-      {
-        selectedGroup && 
-          <a href="#" onClick={e => {e.preventDefault();select()}}>
-            main explorer
-          </a>
-      }
+    <div className="gsim-select-group">
+      <a href="#"
+        onClick={e => { e.preventDefault(); select(baseGroup.group)}}>
+        base group
+      </a>
+      <div className={cn}>
+        { otherGroups.map(({ group, label }) => {
+            const cn = classnames(
+              `gsim-group-${label.toLowerCase()}`,
+              group === selectedGroup && 'active')
+            return (
+              <div key={group}
+                     className={cn}
+                     onClick={() => select(group)}>
+                  {label}
+                </div> 
+            )
+          })
+        }
+        {
+          selectedGroup && 
+            <a href="#" onClick={e => {e.preventDefault();select()}}>
+              main explorer
+            </a>
+        }
+      </div>
     </div>
   )
 }
