@@ -1,13 +1,14 @@
 import React from 'react'
 import { uriToLink } from '../routes'
+import { Link } from 'react-router'
 
 export default function GSBPMSubprocess({ subprocess, code, label, definition, active }) {
  return (
     <div className="subprocess cell">
-      <a href={uriToLink.GSBPMSubProcessDetails(subprocess)} title={definition}>
+      <Link to={uriToLink.GSBPMSubProcessDetails(subprocess)} title={definition}>
 	      <div>{code}</div>
 		    <div>{label}</div>
-	    </a>
+	    </Link>
 	    <GSBPMSubprocessDefinition definition={definition}/>
     </div>
   )

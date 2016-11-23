@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { sparqlConnect } from '../sparql/configure-sparql'
 import { connectFromRoute } from '../routes'
+import ServicesByNSI from './services-by-nsi'
 import { LOADED } from 'sparql-connect'
 
 function NSIDetails({ nsi, loaded, name, shortName, address, geo }) {
@@ -21,6 +22,7 @@ function NSIDetails({ nsi, loaded, name, shortName, address, geo }) {
         <h2>{address}</h2>
         </div>
        }
+       <ServicesByNSI nsi={nsi} />
     </div>
   )
 }

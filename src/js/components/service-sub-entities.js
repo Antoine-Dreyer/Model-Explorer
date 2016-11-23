@@ -15,10 +15,10 @@ export default function ServiceSubEntities(
                 {entity.label}
               </Link>
               { !disabled &&
-               <a href="#" className="pull-right"
+               <Link className="pull-right"
                   onClick={() => remove(uri)} >
                  <span className="glyphicon glyphicon-remove"></span>
-               </a>
+               </Link>
               }
             </li>
           )

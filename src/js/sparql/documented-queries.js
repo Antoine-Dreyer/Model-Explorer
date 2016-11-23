@@ -17,11 +17,13 @@ const {
   subprocesses,
   servicesByGSBPMSubProcess,
   servicesByGSBPMPhase,
+  servicesByNSI,
   GSIMGroups,
   GSIMClassDetails,
   GSBPMSubProcessDetails,
   GSBPMPhaseDetails,
-  organizations
+  organizations,
+  SubsByGSBPMPhase
 } = queries
 
 const queries_ = {
@@ -165,6 +167,19 @@ const queries_ = {
     },
     queryBuilder: servicesByGSIMOutput
   },
+  servicesByNSI: {
+    descr: 'Retrieve all the services in which a NSI is involvedt',
+    whatWeGet: 'services',
+    params: [{
+      name: 'nsi'
+    }],
+    results: {
+      service: 'service (uri)',
+      serviceLabel: 'service label',
+      roleLabel: 'role label'
+    },
+    queryBuilder: servicesByNSI
+  },  
   subprocesses: {
     descr: 'Retrieve all GSBPM subprocesses',
     whatWeGet: 'subs',
@@ -292,6 +307,18 @@ const queries_ = {
     },
     whatWeGet: 'organizations',
     queryBuilder: organizations
+  },
+  SubsByGSBPMPhase: {
+    descr: 'Retrieve all the subprocesses for a given phase',
+    params: [{
+      name: 'GSBPMPhase'
+    }],
+    results: {
+      subprocess: 'subprocess (uri)',
+      label: 'subprocess label'
+    },
+    whatWeGet: 'subprocesses',
+    queryBuilder: SubsByGSBPMPhase    
   }
 }
 

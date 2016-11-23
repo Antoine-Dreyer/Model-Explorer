@@ -311,6 +311,23 @@ const servicesByGSBPMPhase = (GSBPMPhase) => `
 `
 
 /**
+ * Builds the query that retrives the list of all the services in which a NSI
+ * is involved
+ */
+const servicesByNSI = nsi => `
+  PREFIX cspa: <${CSPAPrefix}>
+  PREFIX rdfs:  <${RDFSPrefix}>
+  
+  SELECT ?service ?serviceLabel ?roleLabel
+  WHERE {
+    ?service a cspa:package ;
+             cspa:label ?serviceLabel ;
+    cspa:hasPackageImplementation [
+    cspa:comesFrom [?role [ cspa:organization <${nsi}> ]]] .
+    ?role rdfs:label ?roleLabel
+  }
+`
+/**
  * Builds the query that retrieves the details for a GSIM class
  */
 const GSIMClassDetails = GSIMClass => `
@@ -367,6 +384,22 @@ const organizations = () => `
          skos:prefLabel ?label
   }
 `
+/**
+ * Builds the query that retrives all the subprocesses for a GSBPM phase
+ */
+//TODO we retrieve twice the same information, see GSBPM description query.
+//There might be a better option, but for now it's easier to use a global query
+//to show the GSBPM explorer, and some dedicated queries to show all the
+//subprocesses in a given GSBPM phase.
+const SubsByGSBPMPhase = GSBPMPhase => `
+PREFIX skos:  <${SKOSPrefix}>
+
+SELECT ?subprocess ?label 
+WHERE {
+ <${GSBPMPhase}> skos:narrower ?subprocess .
+ ?subprocess skos:prefLabel ?label
+}
+`
 export default {
   NSIList,
   NSIDetails,
@@ -378,6 +411,7 @@ export default {
   serviceOutputs,
   servicesByGSIMInput,
   servicesByGSIMOutput,
+  servicesByNSI,
   subprocesses,
   GSIMClasses,
   GSIMAllClasses,
@@ -387,5 +421,6 @@ export default {
   GSIMClassDetails,
   GSBPMSubProcessDetails,
   GSBPMPhaseDetails,
-  organizations
+  organizations,
+  SubsByGSBPMPhase
 }

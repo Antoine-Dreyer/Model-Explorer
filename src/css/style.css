@@ -96,6 +96,7 @@ html, body {
   align-items: center;
   font-weight: bold;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .gsim-select-group-small > div.active {
@@ -215,4 +216,35 @@ dd {
 
 .flag-icon.large-flag {
   font-size: 4em;
+}
+
+.navbar-brand {
+  padding: 0 15px;;
+}
+
+.navbar-brand .logo {
+  margin: 5px 15px;
+  width: 40px;
+  display: inline-block;
+}
+
+.base-group-link {
+  color: #666;
+  border: solid #999 3px;
+  padding: 10px;
+  font-size: 1.3em;
+  font-weight: bold;
+  background: #eee;
+  cursor: pointer;
+}
+
+.base-group-link:hover {
+  text-decoration: none;
+  color: #666;
+}
+
+.base-group-link.base-group-link-small {
+  background: none;
+  border: none;
+  font-size: 1em;
 }

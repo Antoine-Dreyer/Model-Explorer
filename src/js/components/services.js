@@ -15,7 +15,6 @@ function Services({ loaded, services }) {
       <button 
         className="btn btn-primary"
         onClick={handleClick}>Create a new service</button>
-      <img src="/img/unece.png" />
     </div>
   )
 }

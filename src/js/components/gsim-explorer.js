@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import GSIMGroupSelector from './gsim-group-selector'
 import { LOADED } from 'sparql-connect' 
 import { sparqlConnect } from '../sparql/configure-sparql'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import { uriToLink } from '../routes'
 import classnames from 'classnames'
 
@@ -50,10 +50,10 @@ function GSIMSelectClass_({ loaded, GSIMClasses, selectClass }){
     <div className="list-group">
       {
         GSIMClasses.map(({ GSIMClass, label }) =>
-          <a
+          <Link
             key={GSIMClass}
             className="list-group-item"
-            href={uriToLink.GSIMClassDetails(GSIMClass)}>{label}</a>)
+            to={uriToLink.GSIMClassDetails(GSIMClass)}>{label}</Link>)
     }
     </div>
   )
@@ -71,13 +71,14 @@ function GSIMSelectGroup_({ loaded, selectedGroup, groups, select, unselect }) {
   const baseGroup = groupsByLabel[baseGroupLabel]
   const otherGroups = otherGroupLabels.map(label => groupsByLabel[label])
   
+  const cnBase = `base-group-link ${selectedGroup && 'base-group-link-small'}`
   const cn = selectedGroup ? 'gsim-select-group-small' : 'gsim-select-group-full'
   return (
     <div className="gsim-select-group">
-      <a href="#"
+      <Link className={cnBase}
         onClick={e => { e.preventDefault(); select(baseGroup.group)}}>
-        base group
-      </a>
+        Base group
+      </Link>
       <div className={cn}>
         { otherGroups.map(({ group, label }) => {
             const cn = classnames(
@@ -94,9 +95,9 @@ function GSIMSelectGroup_({ loaded, selectedGroup, groups, select, unselect }) {
         }
         {
           selectedGroup && 
-            <a href="#" onClick={e => {e.preventDefault();select()}}>
+            <Link onClick={e => {e.preventDefault();select()}}>
               main explorer
-            </a>
+            </Link>
         }
       </div>
     </div>

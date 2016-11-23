@@ -44,9 +44,9 @@ function GSBPMPhase({id, phaseLabel, entries}) {
   return(
     <div className="phase">
       <div className="cell title">
-        <a href={uriToLink.GSBPMPhaseDetails(id)} >
+        <Link to={uriToLink.GSBPMPhaseDetails(id)} >
           <div>{phaseLabel}</div>
-        </a>
+        </Link>
       </div>
       <GSBPMSubprocessList entries={entries}/>
     </div>
